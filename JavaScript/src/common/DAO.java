@@ -7,8 +7,8 @@ import java.sql.SQLException;
 public class DAO {
 	public static Connection getConnect() {
 		Connection conn = null;
-		String user = "bgj";
-		String passwd = "bgj";
+		String user = "hr";
+		String passwd = "hr";
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
 		String driver = "oracle.jdbc.driver.OracleDriver";
 
