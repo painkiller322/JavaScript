@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jqueryEvent.html</title>
+    <script src="jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#p1").mousedown(function () {//p1에 mousedown하면
+                $("#show").html("MouseDown over p1")//show에 메세지 보내고
+                    .css("backgroundColor", "red");//배경바꾸기
+            })
+            $("#p1").mouseup(function () {
+                $("#show").html("MouseUp over p1")
+                    .css("backgroundColor", "yellow");
+            })
+            $("#p1").mouseover(function () {
+                $("#show").html("MouseOver over p1")
+                    .css("backgroundColor", "green");
+            })
+            $("#p1").mouseout(function () {
+                $("#show").html("MouseOut over p1")
+                    .css("backgroundColor", "purple");
+            })
+        })
+    </script>
+</head>
+
+<body>
+    <p id="p1">This is paragraph</p><br><br>
+    <div id="show"></div>
+    <button>Double Click</button>
+    <script>
+        $("button").dblclick(function () {
+            var p1s = $("#p1").html();
+            $("#show").html(p1s);//버튼을 더블클릭하면 <div id="show">태그에 <p id="p1">의 html을 넣는다.
+        })
+    </script>
+</body>
+
+</html>

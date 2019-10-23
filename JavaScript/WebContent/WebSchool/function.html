@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document6</title>
+    <script>
+        function showResult(p1, p2) {
+            document.getElementById('demo').innerHTML = myMulti(p1, p2);
+        }
+        function myMulti(p1, p2) {
+            return p1 * p2;
+        }
+    </script>
+</head>
+
+<body>
+    <div id="demo"></div>
+    <button onclick="showResult(3, 5)">click</button>
+    <script>
+        var myVar = function (a, b) {
+            return a + b;
+        }
+        console.log(myVar(5, 10));
+
+        var localV = 35;
+        function localFunc(){
+            console.log("Function: localV=>" + localV);
+            localV = 50;
+            console.log("Function: localV=>" + localV);
+        }
+        localFunc();
+        console.log("localV: " + localV);
+
+        var c=prompt("input farenheit: ")
+        var d=(5/9)*(c-32);
+        d=Math.round(d);
+        document.getElementById('demo').innerHTML = "화씨온도 "+c+"(은)는 "+"섭씨온도 "+d+"입니다.";
+
+        function localFunc(){
+            console.log("화씨온도: "+c);
+            d=(5/9)*(c-32);
+            console.log("섭씨온도: "+d);
+        }
+        localFunc();
+        console.log("섭씨온도: "+d);
+        function showResult(c, d) {
+            document.getElementById('demo').innerHTML = myMulti(c, d);
+        }
+        // f->c: (5/9)*(f-32)
+    </script>
+</body>
+
+</html>

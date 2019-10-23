@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jqueryEvent3.html</title>
+    <script src="jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#oldbtn").click(function () {//버튼을 누르면 새 버튼을 만든다
+                newBtn();
+            })
+            // $("#newBtn").click(function(){//구현 후 신규로 생성된 이벤트를 실행하는거라 인지가 안되서 실행안됨
+            //     alert("new btn clicked.");
+            // })
+            $(document).on("click", "#newBtn", function () {//상위 이벤트에 대한 선택자를 지정하고 (이벤트이름, 대상, 펑션)
+                alert("new btn clicked.");
+            })
+        });
+    </script>
+</head>
+
+<body>
+    <div id="show"></div>
+    <button id="oldbtn">OldButton</button>
+    <input type="text" name="firstName" value="Scott">
+    <button id="exist">ExistBtn</button>
+    <div id="upper">
+        <p>Paragraph1</p>
+        <p>Paragraph2</p>
+    </div>
+    <script>
+        function newBtn() {
+            var newBtn = $("<button>").text("NewBtn");//$("")안에 <>넣으면 태그를 입력하는 기능을 함. text(""):텍스트 입력됨
+            newBtn.attr("id", "newBtn");//id설정(attr은 id속성을 newBtn으로 하겠다고 설정) 따라서 <button id="newBtn">NewBtn</button>가 구현됨.
+            $("body").prepend(newBtn);//(append는 뒤에 넣기, prepend는 앞에 넣기)
+
+            var div = $("<div>").html($("<h3>").text("Hello"));//div태그 만들고 그안에 <h3>태그+Hello텍스트 넣음
+            $("body").append(div);//body에 div를 넣기.
+
+
+            console.log($("input[name]").val());
+            $("input[name]").val("charlie");
+
+            console.log(newBtn.attr("id"));//attr로 newBtn의 id를 가져옴
+
+            // remove() 요소를 제거
+            $("#exist").remove();
+            //empty() 는 하위요소를 제거
+            $("#upper").empty();
+            // elem.text(), html(), val(), attr("id"), prop("")
+        }
+    </script>
+
+</body>
+
+</html>

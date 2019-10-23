@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jquerySel4.html</title>
+    <script src="jquery.min.js"></script>
+    <script>
+        $(function () {
+            // $("#hide").click(function () {
+            //     $("[href]").hide();//속성은 []안에 작성
+            // })
+            // $("#show").click(function () {
+            //     $("[href]").show();//속성은 []안에 작성
+            // })
+            // $("button:first").click(function(){//button의 first자식
+            //     $("a[target!='_blank']").hide();//a태그중 target속성이 _blank가 아닌 것을 삭제
+            // })
+            $("button:first").click(function(){//button의 first자식
+                $("a[href$=com]").hide();//a태그중 [속성내용(hred)의 끝($)이(=) com]인 것을 삭제. (^는 시작, $는 끝)
+            })
+        });
+    </script>
+</head>
+
+<body>
+    <button id="hide">Hide</button>
+    <button id="show">Show</button>
+    <p>a paragraph</p>
+    <p>another paragraph</p>
+    <p><a href="https://www.daum.net" target="_blank">Daum</a></p>
+    <p><a href="http://www.naver.com" target="parent">Naver</a></p>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jquerySel2.html</title>
+    <script src="jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {//다 읽어보고 준비되면 실행
+            $("#btn1").click(function () {//button을 click하면 function실행
+                $("h2").hide();//h2를 숨기겠다.
+            })
+            $("#btn2").click(function () {//$은 선택자, #은 아이디
+                $("p").hide();
+            })
+            $("p.int").click(function () {//("a b")a,b사이 공란은 자식관계라는 뜻, ("a:b")a의 b번째
+                console.log(this);
+                $(this).hide();//this는 click이벤트를 받는 요소
+            })
+            var elem = $("p").eq(0);
+
+            elem.click(function () {
+                console.log(this);
+                $(this).hide();
+            })
+        });
+    </script>
+</head>
+
+<body>
+    <h2>a Heading</h2>
+    <p class="int">a Paragraph</p>
+    <p>a Another</p>
+    <h2 class="int">Another Heading</h2>
+    <button id="btn1">Click1</button>
+    <button id="btn2">Click2</button>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button onclick="loadXML()">Get XML</button>
+    <p id="showXML"></p>
+
+    <script>
+        // 삭제
+        function del(a) {
+            console.log(a);
+            a.parentNode.parentNode.remove();
+        }
+        // XML불러오기
+        function loadXML() {
+            var xhtp = new XMLHttpRequest();
+            xhtp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    getXML(this);
+                }
+            }
+            xhtp.open("get", "cd_catalog.xml");
+            xhtp.send();
+        }
+        // 만들기
+        function getXML(elem) {
+            var tag = "<table border='1'>";
+            tag += "<tr><th>TITLE</th><th>ARTIST</th><th>COUNTRY</th><th>COMPANY</th><th>PRICE</th><th>YEAR</th><th>delete</th></tr>";
+            var xml = elem.responseXML;//responseXML: 결과값을 xml로 받아오기
+            var cds = xml.getElementsByTagName("CD");
+            console.log(xml);
+            console.log(cds);
+            for (var i = 0; i < cds.length; i++) {
+                tag += "<tr>";
+                tag += "<td>" + cds[i].childNodes[1].childNodes[0].nodeValue + "</td>";//cd태그[i번째].childNodes[1].의 자식[0].의 값
+                tag += "<td>" + cds[i].childNodes[3].childNodes[0].nodeValue + "</td>";
+                tag += "<td>" + cds[i].childNodes[5].childNodes[0].nodeValue + "</td>";
+                tag += "<td>" + cds[i].childNodes[7].childNodes[0].nodeValue + "</td>";
+                tag += "<td>" + cds[i].childNodes[9].childNodes[0].nodeValue + "</td>";
+                tag += "<td>" + cds[i].childNodes[11].childNodes[0].nodeValue + "</td>";
+                tag += "<td>" + "<button onclick='del(this)' id='delete" + i + "'>delete</button>" + "</td>";
+            }
+            tag += "</tr>";
+            tag += "</table>";
+            document.getElementById("showXML").innerHTML = tag;
+        }
+
+    </script>
+</body>
+
+</html>

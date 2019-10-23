@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        <form id="frm" action="action.jsp">
+                이름: <input type="text" name="name"><br>
+                ID: <input type="text" name="id"><br>
+                PW: <input type="password" name="pw"><br>
+        </form>
+        <button id="btn">확인</button>
+        <hr>
+        <p id="show"></p>
+    입력하신 내용은<br>
+    이름: <input id="show_name" type="text"><br>
+    ID: <input id="show_id" type="text"><br>
+    PW: <input id="show_pw" type="text"><br>
+    입니다.
+    <script>
+            var btn = document.getElementById("btn");
+            btn.addEventListener("click", callFunc);
+
+            var info=document.getElementsByTagName("frm");
+
+            function callFunc() {
+                var a = frm[0];
+                var b = frm[1];
+                var c = frm[2];
+    
+                document.getElementById("show_name").value = ddd.;
+            }
+        </script>
+    
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document4</title>
+</head>
+
+<body>
+    <script>
+        var len = 16;
+        console.log(typeof len);//typeof: 자료형을 알고싶을때, 브라우저 f12-console에서 알수있다.
+        len = "sixteen";
+        console.log(typeof len);
+        len = (16 > 15);
+        console.log(typeof len);
+        len = null;
+        console.log(typeof len);//null은 최상위 object로
+        console.log(typeof leng); //선언안된 값
+
+        var cars = ["k5", "sm5", "sonata"];
+        console.log(cars[0]);
+        cars[0] = "k6"//값바꾸기
+        console.log(cars[0]);
+
+        var person = {//중괄호는 오브젝트 타입
+            firstName: "charles",
+            lastName: "Choi",
+            age: 35,
+            fullName: function () { return this.firstName + "-" + this.lastName }
+        }
+        console.log(person.firstName);//점(.)찍어도 되고
+        console.log(person["lastName"]);//["배열이름"]으로 해도 됨
+        console.log(person.fullName());
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    Name: <input type="text" name="fullName" value="name1"><br>
+    Id: <input type="text" name="inputid" value="id1"><br>
+    Passwd: <input type="password" name="inputpw" value="1234"><br>
+    <button id="btn">확인</button>
+    <hr>
+    <div id="show"></div>
+    <script>
+
+
+        var btn = document.getElementById("btn");
+        btn.addEventListener("click", callFunc);
+
+        var inputs = document.getElementsByTagName("input");
+        console.log(inputs.length)
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].addEventListener("focus", onFocus);
+            inputs[i].addEventListener("blur", onBlur);
+        }
+
+        // inputs[0].addEventListener("blur", onBlur);
+        function onFocus() {
+            if (inputs.namedItem("fullName")) {
+                inputs[0].style.background = "yellow";
+            } else if (inputs.namedItem("inputid")) {
+                inputs[1].style.background = "yellow";
+            } else if (inputs.namedItem("inputpw")) {
+                inputs[2].style.background = "yellow";
+            }
+        }
+        function onBlur() {
+            for(var i=0;i<inputs.length;i++){
+                inputs[i].style.background = "white";
+            }
+        }
+        function callFunc() {
+            var result = "입력하신 값은 <br>";
+            var ids = "아이디: " + inputs[1].value + "<br>";
+            var names = "이름; " + inputs[0].value + "<br>";
+            var pass = "비번은: " + inputs[2].value + "<br>";
+
+            result += names + ids + pass;
+
+            // window.alert(result);
+            document.getElementById('show').innerHTML = result;
+        }
+    </script>
+</body>
+
+</html>
