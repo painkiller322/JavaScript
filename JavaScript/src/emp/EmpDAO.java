@@ -16,6 +16,28 @@ public class EmpDAO {
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 
+//수정 메소드
+	public void updateEmp(Employee emp) {
+		conn = DAO.getConnect();
+		String sql = "update emp_temp2 set salary = ? , email = ? where employee_id = ? ";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, emp.getSalary());
+			pstmt.setString(2, emp.getEmail());
+			pstmt.setInt(3, emp.getEmployeeId());
+			int r = pstmt.executeUpdate();
+			System.out.println(r + " 건이 변경되었습니다.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 //	삭제 메소드
 	public void deleteEmployee(int empNo) {
 		conn = DAO.getConnect();
@@ -23,7 +45,8 @@ public class EmpDAO {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, empNo);
-			rs = pstmt.executeQuery();
+			int r = pstmt.executeUpdate();
+			System.out.println(r + " 건이 삭제되었습니다.");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -39,17 +62,17 @@ public class EmpDAO {
 	public Employee getEmployee(int empId) {
 		conn = DAO.getConnect();// 1.집어넣기
 		String sql = "select * from emp_temp2 where employee_id = ?";
-		String sql1 = "{? = call get_dept_name(?)}";
+//		String sql1 = "{? = call get_dept_name(?)}";
 		Employee emp = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, empId);
 			rs = pstmt.executeQuery();
-			CallableStatement cstmt = conn.prepareCall(sql1);
-			cstmt.registerOutParameter(1, java.sql.Types.VARCHAR);
-			cstmt.setInt(2, empId);
-			cstmt.execute();
-			String deptName = cstmt.getString(1);
+//			CallableStatement cstmt = conn.prepareCall(sql1);
+//			cstmt.registerOutParameter(1, java.sql.Types.VARCHAR);
+//			cstmt.setInt(2, empId);
+//			cstmt.execute();
+//			String deptName = cstmt.getString(1);
 
 			if (rs.next()) {
 				emp = new Employee();
@@ -60,7 +83,7 @@ public class EmpDAO {
 				emp.setHireDate(rs.getString("hire_date"));
 				emp.setJobId(rs.getString("job_id"));
 				emp.setSalary(rs.getInt("salary"));
-				emp.setDeptName(deptName);
+//				emp.setDeptName(deptName);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -104,12 +127,11 @@ public class EmpDAO {
 	public void insertEmp(Employee emp) {
 		conn = DAO.getConnect();
 		String sql = "insert into emp_temp2(employee_id, " + "first_name, last_name, email, job_id, "
-				+ "hire_date, salary) values (?,?,?,?,?,?,?) ";
+				+ "hire_date, salary) values (employees_seq.nextval,?,?,?,?,?,?) ";
 		int rCnt = 0;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(++rCnt, emp.getEmployeeId()); // 첫번째param.
-			pstmt.setString(++rCnt, emp.getFirstName()); // 두번째.
+			pstmt.setString(++rCnt, emp.getFirstName());
 			pstmt.setString(++rCnt, emp.getLastName());
 			pstmt.setString(++rCnt, emp.getEmail());
 			pstmt.setString(++rCnt, emp.getJobId());
@@ -132,7 +154,7 @@ public class EmpDAO {
 	public List<Employee> getEmpList() {
 		List<Employee> list = new ArrayList<>();
 		conn = DAO.getConnect();
-		String sql = "select * from emp_temp2 order by 1 desc";
+		String sql = "select * from emp_temp2 order by employee_id desc";
 		Employee emp = null;
 		try {
 			pstmt = conn.prepareStatement(sql);

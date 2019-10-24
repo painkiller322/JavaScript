@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>listEmployee.html</title>
+</head>
+<script src="../jquery/jquery.min.js"></script>
+<script>
+	$.ajax({
+		url : "../../EmpServerlet",
+		dataType : "json",//데이터 타입 변환
+		success : function(result) {
+			console.log(result);
+			var table, tr, th, td;
+			table = $("<table />");
+			table.attr("border", "1");
+			//th타이틀 가지고 오는 부분
+			tr = $("<tr />");
+			for (title in result[0]) {
+				th = $("<th />").text(title);
+				tr.append(th);
+			}
+
+			tr.append($("<th />").text("삭제"))
+
+			table.append(tr);
+			//td데이터를 가지고 보여주는 부분
+			$.each(result, function(i, o) {
+				tr = $("<tr />").attr("id", o.employeeId).dblclick(changeFunc);
+				
+				tr.mouseenter(function() {$(this).css("backgroundColor", "Yellow")});
+				tr.mouseleave(function() {$(this).css("backgroundColor", "")});
+
+				for (field in o) {
+					if (field == "employeeId") {
+						var ahref = $("<a />").text(o[field]);
+						ahref.attr("href", "updateEmployee.jsp?empId="
+								+ o[field]);
+						td = $("<td />").html(ahref);
+						tr.append(td);
+					} else {
+						td = $("<td />").text(o[field]);
+						tr.append(td);
+					}
+				}
+
+				var del = $("<button />").text("Del");
+				del.click(delFunc);
+				tr.append($("<td />").html(del))
+				table.append(tr);
+			})
+
+			$("#show").append(table);
+		}
+	})
+
+	function delFunc() {
+		console.log("delFunc");
+		var empId = $(this).parent().parent().attr("id");
+		$.ajax({
+			url : "../../DeleteEmpServ",
+			data : "empId=" + empId,
+			success : function() {
+				console.log("del success");
+			}
+		});
+		$(this).parent().parent().remove();
+	}
+
+	function changeFunc() {
+		//불러오기
+		var deptName = $(this).children().eq(0).text();
+		var firstName = $(this).children().eq(1).text();
+		var jobId = $(this).children().eq(2).text();
+		var lastName = $(this).children().eq(3).text();
+		var hireDate = $(this).children().eq(4).text();
+		var empId = $(this).children().eq(5).text();
+		var salary = $(this).children().eq(6).text();
+		var email = $(this).children().eq(7).text();
+		//수정하기
+		var tr = $("<tr />");
+		tr.append($("<td />").text(deptName));
+		tr.append($("<td />").text(firstName));
+		tr.append($("<td />").text(jobId));
+		tr.append($("<td />").text(lastName));
+		tr.append($("<td />").text(hireDate));
+		tr.append($("<td />").text(empId));
+		tr.append($("<td />").html($("<input />").val(salary)));
+		tr.append($("<td />").text(email));
+		tr.append($("<td />")
+				.html($("<button />").text("변경").click(updateFunc)));
+		//$("")다음에 (tr)을 넣겠다.
+		$("#" + empId).after(tr);
+		$("#" + empId).css("display", "none");
+	}
+	function updateFunc() {
+		console.log("변경");
+	}
+</script>
+<body>
+	<a href="insertEmployee.html">입력화면</a>
+	<p id="show"></p>
+</body>
+</html>
