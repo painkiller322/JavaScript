@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ajaxEmployee.html</title>
+</head>
+<body>
+	<script>
+		var xhtp = new XMLHttpRequest();//xhtp에 담았다zz
+		xhtp.onreadystatechange = function() {//서버에게 데이터를 요청하여 받음 
+			if (this.readyState == 4 && this.status == 200) {//4번 주고받고, 상태가 양호
+				var data = JSON.parse(this.responseText);
+				console.log(data);
+			}
+		}
+		xhtp.open("get", "EmpServ");
+		xhtp.send();
+	</script>
+</body>
+</html>

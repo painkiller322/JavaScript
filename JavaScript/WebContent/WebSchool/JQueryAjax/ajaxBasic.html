@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>ajaxBasic.html</title>
-<script src="../jquery/jquery.min.js"></script>
+<script src="jquery.min.js"></script>
 <script>
 	// xhtp.onreadystatechange=function(){
 	// this.responseText;
@@ -15,7 +15,7 @@
 	// xhtp.send();
 	$(document).ready(function() {
 		$.ajax({
-			url : "../../EmpServerlet",
+			url : "../EmpServerlet",
 			type : "get",
 			success : function(result) {
 				var datas = JSON.parse(result);

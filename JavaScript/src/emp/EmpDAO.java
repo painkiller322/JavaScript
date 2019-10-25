@@ -7,7 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import common.DAO;
 
@@ -15,6 +17,67 @@ public class EmpDAO {
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
+
+	  public Map<String, Integer> getPersonPerDept() {
+	         conn = DAO.getConnect();
+	         String sql = "select d.department_name, e.department_id , " + "count(*) as cnt " + "from employees e, "
+	               + "departments d " + "where e.department_id = d.department_id "
+	               + "group by d.department_name, e.department_id";
+	         Map<String, Integer> list = new HashMap<>();
+
+	         try {
+	            pstmt = conn.prepareStatement(sql);
+	            rs = pstmt.executeQuery();
+	            while (rs.next()) {
+	               String dept = rs.getString("department_name");
+	               Integer cnt = rs.getInt("cnt");
+	               list.put(dept, cnt);
+
+	            }
+	         } catch (SQLException e) {
+	            e.printStackTrace();
+	         } finally {
+	            try {
+	               conn.close();
+	            } catch (SQLException e) {
+	               e.printStackTrace();
+	            }
+	         }
+
+	         return list;
+	      }
+	   
+
+//	json으로 표만들기
+	public List<Employee> getJsonData() {
+		conn = DAO.getConnect();
+		String sql = "select first_name, last_name, salary, hire_date, email, job_id from emp_temp2";
+		List<Employee> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Employee emp = new Employee();
+				emp.setFirstName(rs.getString("first_name"));
+				emp.setLastName(rs.getString("last_name"));
+				emp.setSalary(rs.getInt("salary"));
+				emp.setHireDate(rs.getString("hire_date"));
+				emp.setEmail(rs.getString("email"));
+				emp.setJobId(rs.getString("job_id"));
+				list.add(emp);
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
 
 //수정 메소드
 	public void updateEmp(Employee emp) {
